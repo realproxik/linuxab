@@ -1,0 +1,156 @@
+# SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
+# Copyright (C) 2024-2026 [Tera Naam]
+# Linuxab OS GCC Plugins Configuration
+
+menu "GCC Plugins"
+
+config GCC_PLUGINS
+	bool "Enable GCC plugins"
+	depends on CC_IS_GCC
+	depends on $(success,$(srctree)/scripts/gcc-plugins/gcc-plugin.sh $(CC))
+	default y
+	help
+	  GCC plugins are loadable modules that provide extra features
+	  to the GNU compiler. Linuxab uses them for security hardening
+	  and code analysis.
+
+config GCC_PLUGIN_CYC_COMPLEXITY
+	bool "Compute cyclomatic complexity"
+	depends on GCC_PLUGINS
+	help
+	  Calculate cyclomatic complexity for each function.
+
+config GCC_PLUGIN_LATENT_ENTROPY
+	bool "Generate latent entropy"
+	depends on GCC_PLUGINS
+	help
+	  Generate entropy from code execution paths for random seeds.
+
+config GCC_PLUGIN_RANDSTRUCT
+	bool "Randomize layout of sensitive structures"
+	depends on GCC_PLUGINS
+	help
+	  Randomize the layout of selected structures to prevent
+      infoleaks and make exploitation harder.
+
+config GCC_PLUGIN_RANDSTRUCT_PERFORMANCE
+	bool "Consider performance when randomizing"
+	depends on GCC_PLUGIN_RANDSTRUCT
+	help
+	  Trade off security for performance in structure randomization.
+
+config GCC_PLUGIN_STACKLEAK
+	bool "Erase the kernel stack before return from syscalls"
+	depends on GCC_PLUGINS
+	depends on HAVE_STACKLEAK
+	help
+	  Erase the kernel stack before returning from syscalls.
+	  This reduces the information which kernel stack leak bugs
+	  can reveal and blocks some uninitialized stack variable attacks.
+
+config GCC_PLUGIN_STRUCTLEAK
+	bool "Force initialization of variables"
+	depends on GCC_PLUGINS
+	help
+	  Force initialization of variables that might not be
+	  initialized explicitly.
+
+config GCC_PLUGIN_STRUCTLEAK_BYREF
+	bool "Force initialization of variables passed by reference"
+	depends on GCC_PLUGIN_STRUCTLEAK
+	help
+	  Force initialization of variables passed by reference.
+
+config GCC_PLUGIN_STRUCTLEAK_BYREF_ALL
+	bool "Force initialization of all variables passed by reference"
+	depends on GCC_PLUGIN_STRUCTLEAK_BYREF
+	help
+	  Force initialization of all variables passed by reference,
+	  not just structs.
+
+config GCC_PLUGIN_ARM_SSP_PER_TASK
+	bool "ARM per-task stack protector"
+	depends on GCC_PLUGINS
+	depends on ARM
+	help
+	  Use a unique stack canary value for each task.
+
+config GCC_PLUGIN_KASAN
+	bool "KASAN instrumentation"
+	depends on GCC_PLUGINS
+	depends on KASAN
+	help
+	  Instrument memory accesses for Kernel Address Sanitizer.
+
+config GCC_PLUGIN_UBSAN
+	bool "UBSAN instrumentation"
+	depends on GCC_PLUGINS
+	depends on UBSAN
+	help
+	  Instrument code for Undefined Behavior Sanitizer.
+
+config GCC_PLUGIN_CFI
+	bool "Control Flow Integrity"
+	depends on GCC_PLUGINS
+	depends on CFI_CLANG || CFI_GCC
+	help
+	  Validate indirect call targets to prevent ROP/JOP attacks.
+
+config GCC_PLUGIN_SANCOV
+	bool "Sanitizer coverage"
+	depends on GCC_PLUGINS
+	depends on COVERAGE
+	help
+	  Coverage instrumentation for fuzzing.
+
+config GCC_PLUGIN_LATENT_ENTROPY
+	bool "Latent entropy extraction"
+	depends on GCC_PLUGINS
+	help
+	  Extract entropy from program execution flow.
+
+config GCC_PLUGIN_RANDSTRUCT
+	bool "Structure layout randomization"
+	depends on GCC_PLUGINS
+	help
+	  Randomize layout of sensitive kernel structures.
+
+config GCC_PLUGIN_RANDSTRUCT_PERFORMANCE
+	bool "Performance-aware structure randomization"
+	depends on GCC_PLUGIN_RANDSTRUCT
+	help
+	  Balance security and performance in struct randomization.
+
+config GCC_PLUGIN_STACKLEAK
+	bool "Stack erasure"
+	depends on GCC_PLUGINS
+	depends on HAVE_STACKLEAK
+	help
+	  Erase kernel stack before returning from syscalls.
+
+config GCC_PLUGIN_STRUCTLEAK
+	bool "Variable initialization"
+	depends on GCC_PLUGINS
+	help
+	  Force initialization of potentially uninitialized variables.
+
+config GCC_PLUGIN_STRUCTLEAK_BYREF
+	bool "By-reference initialization"
+	depends on GCC_PLUGIN_STRUCTLEAK
+	help
+	  Initialize variables passed by reference.
+
+config GCC_PLUGIN_STRUCTLEAK_BYREF_ALL
+	bool "All by-reference initialization"
+	depends on GCC_PLUGIN_STRUCTLEAK_BYREF
+	help
+	  Initialize all variables passed by reference.
+
+config GCC_PLUGIN_ARM_SSP_PER_TASK
+	bool "ARM per-task stack canary"
+	depends on GCC_PLUGINS
+	depends on ARM
+	help
+	  Unique stack canary per task on ARM.
+
+endmenu
