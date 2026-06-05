@@ -1,0 +1,210 @@
+# SPDX-License-Identifier: GPL-2.0
+# linuxab .gitattributes - Git behavior and diff/merge drivers
+
+# ============================================
+# Default: LF line endings, no CRLF pollution
+# ============================================
+* text=auto eol=lf
+
+# ============================================
+# Source code: C, Assembly, Headers, Rust
+# ============================================
+*.c     text diff=cpp
+*.h     text diff=cpp
+*.S     text diff=cpp
+*.inc   text diff=cpp
+*.rs    text diff=rust
+
+# C++ (if any tools/userspace)
+*.cc    text diff=cpp
+*.cpp   text diff=cpp
+*.hpp   text diff=cpp
+
+# ============================================
+# Build system
+# ============================================
+Makefile        text diff=make
+*.mk            text diff=make
+Kconfig         text diff=kconfig
+Kconfig.*       text diff=kconfig
+*.lds           text diff=cpp
+*.lds.S         text diff=cpp
+
+# ============================================
+# Scripts
+# ============================================
+*.sh    text eol=lf diff=bash
+*.py    text eol=lf diff=python
+*.pl    text eol=lf diff=perl
+*.awk   text eol=lf
+*.sed   text eol=lf
+
+# ============================================
+# Config / Data
+# ============================================
+*.yaml  text eol=lf diff=yaml
+*.yml   text eol=lf diff=yaml
+*.json  text eol=lf diff=json
+*.toml  text eol=lf
+*.ini   text eol=lf
+*.conf  text eol=lf
+*.cfg   text eol=lf
+
+# ============================================
+# Documentation
+# ============================================
+*.md    text eol=lf diff=markdown
+*.txt   text eol=lf
+*.rst   text eol=lf diff=markdown
+*.tex   text eol=lf
+
+# ============================================
+# GitHub / CI
+# ============================================
+.github/**      text eol=lf
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
+.editorconfig   text eol=lf
+.clang-format   text eol=lf
+
+# ============================================
+# Binary files: NEVER diff, NEVER merge text
+# ============================================
+# Firmware / blobs
+*.bin   binary -diff -merge
+*.fw    binary -diff -merge
+*.rom   binary -diff -merge
+*.img   binary -diff -merge
+*.iso   binary -diff -merge
+
+# Compiled objects
+*.o     binary -diff -merge
+*.a     binary -diff -merge
+*.so    binary -diff -merge
+*.ko    binary -diff -merge
+*.elf   binary -diff -merge
+*.exe   binary -diff -merge
+
+# Archives
+*.tar   binary -diff -merge
+*.gz    binary -diff -merge
+*.bz2   binary -diff -merge
+*.xz    binary -diff -merge
+*.zip   binary -diff -merge
+*.7z    binary -diff -merge
+
+# Images
+*.png   binary -diff -merge
+*.jpg   binary -diff -merge
+*.jpeg  binary -diff -merge
+*.gif   binary -diff -merge
+*.bmp   binary -diff -merge
+*.svg   text eol=lf diff=xml
+*.ico   binary -diff -merge
+
+# Fonts
+*.ttf   binary -diff -merge
+*.otf   binary -diff -merge
+*.woff  binary -diff -merge
+*.woff2 binary -diff -merge
+
+# Audio
+*.wav   binary -diff -merge
+*.mp3   binary -diff -merge
+*.ogg   binary -diff -merge
+
+# Video
+*.mp4   binary -diff -merge
+*.webm  binary -diff -merge
+
+# ============================================
+# Linguist overrides (GitHub language bar)
+# ============================================
+# Mark assembly headers as C for stats
+*.h     linguist-language=C
+*.inc   linguist-language=C
+
+# .S files are assembly, but count as C for kernel style
+*.S     linguist-language=Assembly
+
+# Linker scripts are not a separate language
+*.lds   linguist-language=C
+*.lds.S linguist-language=C
+
+# Kconfig is not INI
+Kconfig         linguist-language=Text
+Kconfig.*       linguist-language=Text
+
+# Device tree
+*.dts   linguist-language=DeviceTree
+*.dtsi  linguist-language=DeviceTree
+*.dtb   binary -diff -merge
+
+# Ignore generated files in language stats
+*.mod.c         linguist-generated=true
+*.mod.o         linguist-generated=true
+*.order         linguist-generated=true
+*.symvers       linguist-generated=true
+*.cmd           linguist-generated=true
+*.tmp           linguist-generated=true
+*.bak           linguist-generated=true
+*.swp           linguist-generated=true
+
+# Ignore vendored / third-party
+tools/**        linguist-vendored
+scripts/**      linguist-vendored
+include/uapi/** linguist-vendored=false
+
+# Documentation not counted as repo language
+Documentation/** linguist-documentation
+
+# ============================================
+# Merge strategies
+# ============================================
+# Changelog: union merge to avoid conflicts
+CHANGELOG       merge=union
+CHANGELOG.md    merge=union
+
+# MAINTAINERS: ours merge (don't clobber)
+MAINTAINERS     merge=ours
+
+# Version files: ours merge
+VERSION         merge=ours
+localversion*   merge=ours
+
+# ============================================
+# Export-ignore (exclude from git archive)
+# ============================================
+.gitattributes  export-ignore
+.gitignore      export-ignore
+.editorconfig   export-ignore
+.clang-format   export-ignore
+.github/        export-ignore
+ci/             export-ignore
+.travis.yml     export-ignore
+.appveyor.yml   export-ignore
+
+# Test artifacts
+*.log           export-ignore
+*.tmp           export-ignore
+*.bak           export-ignore
+*.swp           export-ignore
+*~              export-ignore
+
+# ============================================
+# Special diff drivers (if configured)
+# ============================================
+# Enable with: git config diff.dts.command "scripts/dtc/diff-dts"
+*.dts   diff=dts
+*.dtsi  diff=dts
+
+# Enable with: git config diff.kconfig.command "scripts/diffconfig"
+Kconfig         diff=kconfig
+Kconfig.*       diff=kconfig
+*.config        diff=kconfig
+
+# ============================================
+# Renormalize: force checkout with LF
+# ============================================
+# If repo has CRLF pollution, run:
+# git add --renormalize .

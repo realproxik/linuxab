@@ -1,0 +1,126 @@
+# SPDX-License-Identifier: GPL-2.0
+# linuxab .clang-format - Linux Kernel Coding Style
+
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Linux kernel: hard tabs, width 8
+IndentWidth: 8
+TabWidth: 8
+UseTab: Always
+
+# 80 column limit (traditional kernel)
+ColumnLimit: 80
+
+# Function return types always on their own line
+AlwaysBreakAfterReturnType: AllDefinitions
+
+# Braces: K&R variant
+# - Functions: next line
+# - if/for/while/struct: same line
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: true
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# Pointer alignment: char *ptr (right)
+PointerAlignment: Right
+DerivePointerAlignment: false
+
+# Never collapse short functions/blocks
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# case labels aligned with switch
+IndentCaseLabels: false
+
+# Spaces
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpacesInContainerLiterals: false
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+AlignOperands: true
+
+# Argument packing (kernel style)
+BinPackArguments: true
+BinPackParameters: true
+ExperimentalAutoDetectBinPacking: false
+
+# Continuation
+ContinuationIndentWidth: 8
+
+# Empty lines
+MaxEmptyLinesToKeep: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# Includes (don't auto-sort, preserve blocks)
+SortIncludes: false
+IncludeBlocks: Preserve
+
+# Comments
+ReflowComments: true
+CommentPragmas: '^ SPDX-License-Identifier'
+
+# Preprocessor
+IndentPPDirectives: None
+
+# Kernel foreach-style macros
+ForEachMacros:
+  - list_for_each_entry
+  - list_for_each_entry_safe
+  - list_for_each
+  - list_for_each_safe
+  - list_for_each_prev
+  - hlist_for_each_entry
+  - hlist_for_each_entry_safe
+  - for_each_cpu
+  - for_each_possible_cpu
+  - for_each_online_cpu
+  - for_each_netdev
+  - for_each_process
+  - for_each_thread
+  - rb_for_each
+  - hash_for_each
+  - hash_for_each_possible
+
+# Typename macros
+TypenameMacros:
+  - DECLARE_BITMAP
+  - DEFINE_MUTEX
+  - LIST_HEAD
+  - INIT_LIST_HEAD
+
+# Penalties
+PenaltyBreakAssignment: 100
+PenaltyBreakBeforeFirstCallParameter: 30
+PenaltyBreakComment: 10
+PenaltyBreakFirstLessLess: 0
+PenaltyBreakString: 10
+PenaltyExcessCharacter: 100
+PenaltyReturnTypeOnItsOwnLine: 60

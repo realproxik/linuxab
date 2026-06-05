@@ -1,55 +1,235 @@
-# Prerequisites
-*.d
-
-# Object files
+# --- Build artifacts ---
+/target/
+/build/
+/out/
+/dist/
 *.o
+*.a
+*.so
 *.ko
-*.obj
 *.elf
+*.bin
+*.iso
+*.img
+*.vmdk
+*.vdi
+*.qcow2
 
-# Linker output
+# --- Rust specific ---
+Cargo.lock
+**/*.rs.bk
+*.rlib
+*.rmeta
+/.cargo/
+!/src/kernel/target.json
+
+# --- C/Assembly specific ---
+*.obj
+*.lib
+*.exp
+*.pdb
 *.ilk
 *.map
-*.exp
+*.sym
 
-# Precompiled Headers
-*.gch
-*.pch
+# --- Linker output ---
+*.ld.generated
+*.map
+*.symvers
+*.mod
+*.mod.c
+*.order
+*.cmd
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# --- Kernel modules ---
+*.mod
+*.mod.o
+*.mod.c
+*.order
+*.symvers
+*.ko
+*.ko.cmd
+*.mod.cmd
+*.o.cmd
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# --- Generated files ---
+/include/generated/
+/include/config/
+/include/linux/version.h
+/include/linux/compile.h
+/.config
+/.config.old
+/auto.conf
+/tristate.conf
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# --- Documentation build ---
+/Documentation/output/
+/Documentation/*.pdf
+/Documentation/*.html
 
-# Debug files
+# --- Test artifacts ---
+/test-results/
+*.test
+*.bench
+/coverage/
+*.profraw
+*.profdata
+
+# --- IDE and editors ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+*.bak
+*.orig
+*.rej
+*.patch
+*.diff
+
+# --- OS specific ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.temp
+
+# --- Debug files ---
 *.dSYM/
 *.su
 *.idb
 *.pdb
+.gdb_history
+.gdbinit
+.valgrindrc
+*.core
+core.*
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# --- Qemu/VM files ---
+*.qcow2
+*.vdi
+*.vmdk
+*.raw
+/disk/
+/mnt/
 
-# debug information files
-*.dwo
+# --- Bootloader artifacts ---
+/boot/*.bin
+/boot/*.lst
+/boot/*.map
+/grub/*.cfg.generated
+
+# --- Package manager files ---
+/node_modules/
+/vendor/
+/.venv/
+/__pycache__/
+*.egg-info/
+*.whl
+
+# --- CI/CD ---
+/.github/workflows/*.log
+/.gitlab-ci-local/
+/.circleci/artifacts/
+
+# --- Secrets (NEVER commit) ---
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+.env
+.env.local
+.secrets
+/config/secrets/
+/keys/
+/secure-boot-keys/
+
+# --- Temporary files ---
+*.log
+*.log.*
+/tmp/
+/temp/
+/cache/
+*.pid
+*.lock
+
+# --- Profiling ---
+*.prof
+*.profile
+perf.data
+perf.data.old
+/flamegraph.svg
+
+# --- Firmware blobs ---
+/firmware/*.bin
+/firmware/*.fw
+!/firmware/README.md
+
+# --- Device tree blobs ---
+*.dtb
+*.dtbo
+/dts/*.dtb
+
+# --- Initramfs ---
+/initramfs.cpio
+/initramfs.cpio.gz
+/initrd.img
+/initrd.img-*
+
+# --- Symbol tables ---
+/System.map
+/System.map-*
+/vmlinux
+/vmlinux-*
+/vmlinuz
+/vmlinuz-*
+
+# --- GRUB ---
+/grub/*.cfg
+!/grub/grub.cfg.template
+/boot/grub/*.cfg
+
+# --- Tags and cscope ---
+tags
+TAGS
+cscope.*
+ncscope.*
+*.tags
+
+# --- Clangd ---
+/.clangd/
+/compile_commands.json
+
+# --- Rust analyzer ---
+/rust-project.json
+
+# --- Custom kernel configs ---
+.config-* 
+!/.config.template
+
+# --- Backup files ---
+*.backup
+*.bak
+*.old
+*.orig
+*.rej
+*.rpmorig
+*.rpmsave
+*.dpkg-old
+*.dpkg-dist
+*.dpkg-new
+*.dpkg-tmp
+
+# --- Kernel crash dumps ---
+/crash/
+/vmcore
+/vmcore.*
+/kdump/
+
+# --- Traces ---
+*.trace
+*.strace
+/lttng-traces/

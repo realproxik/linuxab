@@ -1,0 +1,120 @@
+# SPDX-License-Identifier: GPL-2.0
+# linuxab .editorconfig - Linux Kernel Coding Style
+
+# Root editorconfig file
+root = true
+
+# ============================================
+# C / C++ / Assembly / Headers (Kernel Code)
+# ============================================
+[*.{c,h,S,inc}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Linux kernel: hard tabs, width 8
+indent_style = tab
+indent_size = 8
+tab_width = 8
+
+# 80 columns (traditional kernel), allow 100 for modern
+max_line_length = 80
+
+# Braces (editor hints - actual formatting via .clang-format)
+curly_bracket_next_line = true
+spaces_around_operators = false
+spaces_around_brackets = outside
+
+# ============================================
+# Kconfig / Makefile / Build files
+# ============================================
+[{Kconfig,Kconfig.*,Makefile,*.mk,*.sh}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = tab
+indent_size = 8
+tab_width = 8
+
+# ============================================
+# Device Tree / DTS
+# ============================================
+[*.dts{,i}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = tab
+indent_size = 8
+tab_width = 8
+
+# ============================================
+# YAML / JSON (CI, GitHub Actions, etc.)
+# ============================================
+[*.{yml,yaml,json}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# ============================================
+# Python (scripts, generators)
+# ============================================
+[*.py]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = space
+indent_size = 4
+tab_width = 4
+max_line_length = 100
+
+# ============================================
+# Markdown / Documentation
+# ============================================
+[*.md]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# ============================================
+# Linker Scripts / GDB Scripts
+# ============================================
+[*.lds{,.S}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = tab
+indent_size = 8
+tab_width = 8
+
+# ============================================
+# Rust (for future linuxab Rust modules)
+# ============================================
+[*.rs]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+indent_style = space
+indent_size = 4
+tab_width = 4
+max_line_length = 100
