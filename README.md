@@ -1,5 +1,5 @@
 ## website tree source
-[View File Explorer](https://realproxik.github.io/linuxab/)
+[View website](https://linuxab.netlify.app/)
 
 thi website is build by realproxik
 
