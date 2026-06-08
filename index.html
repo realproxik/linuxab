@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>linuxab - OS Repository Explorer</title>
+<base target="_blank">
+</head>
+<body>
+<h1>linuxab</h1>
+<p>Rust OS Kernel with BIOS, bash-like terminal, desktop environment & Linux subsystems</p>
+<p>
+  <strong>Files:</strong> <span id="file-count">0</span> |
+  <strong>Dirs:</strong> <span id="dir-count">0</span> |
+  <strong>Total Size:</strong> <span id="total-size">0 B</span>
+</p>
+<p>
+  <input type="text" id="search" placeholder="Search files... (e.g. kernel, rust, .rs)" size="50" autocomplete="off">
+</p>
+<hr>
+<div id="tree-root"></div>
+<p id="no-results" style="display:none;">No files match your search.</p>
+<hr>
+<p>Built from <a href="https://github.com/realproxik/linuxab" target="_blank">github.com/realproxik/linuxab</a></p>
+
+<script>
+const files = [{"path": ".dir-locals.el", "size": 132}, {"path": ".gitattributes", "size": 5984}, {"path": ".gitignore", "size": 2772}, {"path": ".json", "size": 382}, {"path": ".rustfmt.toml", "size": 3566}, {"path": ".vimrc", "size": 147}, {"path": ".yaml", "size": 2931}, {"path": "LICENSE", "size": 18767}, {"path": "VERSION", "size": 5}, {"path": "cargo.toml", "size": 200}, {"path": "cmpchxg.h", "size": 4284}, {"path": "compiler.h", "size": 4304}, {"path": "cpufeature.h", "size": 9603}, {"path": "credits.md", "size": 338}, {"path": "drm.h", "size": 2865}, {"path": "irqflags.h", "size": 2164}, {"path": "linuxab.editorconfig", "size": 2865}, {"path": "linuxab.iso", "size": 7286784}, {"path": "rt.sh", "size": 537}, {"path": "runclangFormat.sh", "size": 233}, {"path": "rustTemp.txt", "size": 73}, {"path": "rusttemp.sh", "size": 201}, {"path": "settings.json", "size": 335}, {"path": "stdos.s", "size": 628}, {"path": "trans.s", "size": 15012}, {"path": "uccess.h", "size": 5241}, {"path": "xenix.s", "size": 24975}, {"path": "asm/boot/.gitignore", "size": 98}, {"path": "asm/boot/boot.S", "size": 11014}, {"path": "bootloader/pcn/boot.s", "size": 11014}, {"path": "bootloader/pcn/multiboot.s", "size": 63663}, {"path": "bootloader/rust/arch/arm/boot/bootp/Kernel.S", "size": 143}, {"path": "kernel/Workqueue.c", "size": 7343}, {"path": "kernel/acct.c", "size": 2837}, {"path": "kernel/akciper.c", "size": 6607}, {"path": "kernel/atomic.h", "size": 4887}, {"path": "kernel/audit.c", "size": 4927}, {"path": "kernel/barrier.h", "size": 1256}, {"path": "kernel/bitops.h", "size": 3702}, {"path": "kernel/bugs.h", "size": 2772}, {"path": "kernel/cache.h", "size": 957}, {"path": "kernel/capability.c", "size": 6890}, {"path": "kernel/cpu.c", "size": 7889}, {"path": "kernel/current.h", "size": 793}, {"path": "kernel/cursor.c", "size": 9891}, {"path": "kernel/exit.c", "size": 6142}, {"path": "kernel/fork.c", "size": 8975}, {"path": "kernel/panic.c", "size": 3797}, {"path": "kernel/pgtable.h", "size": 3604}, {"path": "kernel/printk.c", "size": 6816}, {"path": "kernel/processor.h", "size": 4999}, {"path": "kernel/ptrace.h", "size": 2021}, {"path": "kernel/sections.h", "size": 1940}, {"path": "kernel/signal.c", "size": 9771}, {"path": "kernel/smp.h", "size": 1823}, {"path": "kernel/spinlock.h", "size": 2543}, {"path": "kernel/string.h", "size": 2858}, {"path": "kernel/switch_to.h", "size": 1840}, {"path": "kernel/tlbflush.h", "size": 1806}, {"path": "kernel/drivers/atags.h", "size": 3922}, {"path": "kernel/drivers/atags_compact.c", "size": 2872}, {"path": "kernel/drivers/bios32.c", "size": 4862}, {"path": "kernel/drivers/bugs.c", "size": 8136}, {"path": "kernel/drivers/crash_dump.S", "size": 2213}, {"path": "kernel/drivers/debug.S", "size": 5182}, {"path": "kernel/drivers/drm.c", "size": 4794}, {"path": "kernel/drivers/drm_accel.c", "size": 0}, {"path": "kernel/drivers/early_serial.S", "size": 5267}, {"path": "kernel/drivers/elf.c", "size": 7542}, {"path": "kernel/drivers/fbcon.c", "size": 13770}, {"path": "kernel/drivers/fbcon.h", "size": 924}, {"path": "kernel/drivers/haudio.h", "size": 3012}, {"path": "kernel/drivers/head_64.S", "size": 4075}, {"path": "kernel/drivers/kconfig", "size": 1241}, {"path": "kernel/drivers/linuxab.Ids.S", "size": 2848}, {"path": "kernel/drivers/accel/acpi-battery.c", "size": 1296}, {"path": "kernel/drivers/accel/acpi.c", "size": 1100}, {"path": "kernel/drivers/accel/acpi.h", "size": 9959}, {"path": "kernel/drivers/accel/acpi_bus.c", "size": 3014}, {"path": "kernel/drivers/accel/acpi_button.c", "size": 1829}, {"path": "kernel/drivers/accel/acpi_ec.c", "size": 3397}, {"path": "kernel/drivers/accel/acpi_event.c", "size": 4537}, {"path": "kernel/drivers/accel/acpi_interal.h", "size": 3037}, {"path": "kernel/drivers/accel/acpi_pci.c", "size": 1181}, {"path": "kernel/drivers/accel/acpi_power.c", "size": 634}, {"path": "kernel/drivers/accel/acpi_processor.c", "size": 1190}, {"path": "kernel/drivers/accel/acpi_resource.c", "size": 4741}, {"path": "kernel/drivers/accel/acpi_sleep.c", "size": 4981}, {"path": "kernel/drivers/accel/acpi_tables.c", "size": 3021}, {"path": "kernel/drivers/accel/acpi_thermal.c", "size": 1237}, {"path": "kernel/drivers/accel/drm_accel.c", "size": 0}, {"path": "kernel/drivers/accel/kconfig", "size": 1241}, {"path": "kernel/drivers/amdxdna/acpi-battery.c", "size": 1296}, {"path": "kernel/drivers/amdxdna/acpi.c", "size": 1100}, {"path": "kernel/drivers/amdxdna/acpi.h", "size": 9959}, {"path": "kernel/drivers/amdxdna/acpi_bus.c", "size": 3014}, {"path": "kernel/drivers/amdxdna/acpi_button.c", "size": 1829}, {"path": "kernel/drivers/amdxdna/acpi_ec.c", "size": 3397}, {"path": "kernel/drivers/amdxdna/acpi_event.c", "size": 4537}, {"path": "kernel/drivers/amdxdna/acpi_interal.h", "size": 3037}, {"path": "kernel/drivers/amdxdna/acpi_power.c", "size": 634}, {"path": "kernel/drivers/amdxdna/acpi_processor.c", "size": 1190}, {"path": "kernel/drivers/amdxdna/acpi_resource.c", "size": 4741}, {"path": "kernel/drivers/amdxdna/acpi_sleep.c", "size": 4981}, {"path": "kernel/drivers/amdxdna/acpi_tables.c", "size": 3021}, {"path": "kernel/drivers/amdxdna/acpi_thermal.c", "size": 1237}, {"path": "kernel/drivers/amdxdna/aie2_pci.h", "size": 2045}, {"path": "lib/python/gcc/libs/TODO", "size": 21}, {"path": "lib/python/gcc/libs/ada.py", "size": 3004}, {"path": "lib/python/gcc/libs/base.py", "size": 4416}, {"path": "lib/python/gcc/libs/c.py", "size": 3321}, {"path": "lib/python/gcc/libs/elixir.py", "size": 2844}, {"path": "lib/python/gcc/libs/gcc.py", "size": 4064}, {"path": "lib/python/gcc/libs/html.py", "size": 5697}, {"path": "lib/python/gcc/libs/py.py", "size": 6433}, {"path": "lib/python/gcc/libs/toolchain.py", "size": 6330}, {"path": "net/af_inet.c", "size": 4427}, {"path": "net/af_inet.h", "size": 3471}, {"path": "net/af_netlink.c", "size": 1553}, {"path": "net/af_netlink.h", "size": 2967}, {"path": "net/dev.c", "size": 2887}, {"path": "net/dev.h", "size": 3826}, {"path": "net/eth.c", "size": 1946}, {"path": "net/icmp.c", "size": 1138}, {"path": "net/ip_input.c", "size": 1731}, {"path": "net/ip_output.c", "size": 1730}, {"path": "net/skbuff.c", "size": 3011}, {"path": "net/skbuff.h", "size": 4063}, {"path": "net/socket.c", "size": 4122}, {"path": "net/socket_core.c", "size": 4575}, {"path": "net/tcp.c", "size": 2502}, {"path": "net/udp.c", "size": 1584}, {"path": "rust/SMR.c", "size": 4205}, {"path": "rust/SMR.h", "size": 2291}, {"path": "rust/Stackprotectot.c", "size": 1598}, {"path": "rust/acpi.rs", "size": 1787}, {"path": "rust/allocator.rs", "size": 386}, {"path": "rust/cfi.c", "size": 2646}, {"path": "rust/cfi.h", "size": 1115}, {"path": "rust/desktop.rs", "size": 35400}, {"path": "rust/kasan.c", "size": 5226}, {"path": "rust/kasan.h", "size": 2394}, {"path": "rust/types.c", "size": 8123}, {"path": "rust/types.h", "size": 5972}, {"path": "rust/ubsan.c", "size": 5268}, {"path": "rust/ubsan.h", "size": 3478}, {"path": "rust/vga.rs", "size": 8874}, {"path": "rust/xarray.rs", "size": 44604}, {"path": "rust/arch/alpha/cosole.h", "size": 1086}, {"path": "rust/arch/alpha/kbuild", "size": 134}, {"path": "rust/arch/alpha/kconfig", "size": 15892}, {"path": "rust/arch/alpha/kconfig.debug", "size": 1361}, {"path": "rust/arch/alpha/makefile", "size": 1911}, {"path": "rust/arch/boot/boltp.c", "size": 5920}, {"path": "rust/arch/boot/bootloader.Ids", "size": 563}, {"path": "rust/arch/boot/bootpz.c", "size": 13913}, {"path": "rust/arch/boot/head.S", "size": 1967}, {"path": "rust/arch/boot/main.c", "size": 4526}, {"path": "rust/arch/boot/makefile", "size": 563}, {"path": "rust/arch/boot/misc.c", "size": 4657}, {"path": "rust/arch/boot/stdio.c", "size": 6472}, {"path": "rust/arch/boot/tools/mkbb.c", "size": 3597}, {"path": "rust/arch/boot/tools/objstrip.c", "size": 6219}, {"path": "rust/arch/include/age_backend.h", "size": 948}, {"path": "rust/arch/include/asm-prototype.h", "size": 526}, {"path": "rust/arch/include/kbuild", "size": 1476}, {"path": "rust/configs/console.h", "size": 1114}, {"path": "rust/configs/core_cia.h", "size": 16205}, {"path": "rust/configs/core_t2.h", "size": 20268}, {"path": "rust/configs/core_titan.h", "size": 11881}, {"path": "rust/configs/core_tsunami.h", "size": 8818}, {"path": "rust/configs/defconfig", "size": 1476}, {"path": "rust/configs/floppy.h", "size": 2641}, {"path": "rust/configs/fpu.h", "size": 2267}, {"path": "rust/configs/futex.h", "size": 2114}, {"path": "rust/configs/gct.h", "size": 1099}, {"path": "rust/configs/io.h", "size": 16724}, {"path": "rust/configs/irq.h", "size": 2204}, {"path": "rust/configs/local.h", "size": 2840}, {"path": "rust/configs/serail.h", "size": 1062}, {"path": "rust/configs/setup.h", "size": 1506}, {"path": "rust/configs/sfp-machine.h", "size": 3009}, {"path": "rust/configs/signal.h", "size": 653}, {"path": "rust/configs/socket.h", "size": 319}, {"path": "rust/configs/spinlock.h", "size": 3078}, {"path": "rust/configs/syscall.h", "size": 2996}, {"path": "rust/configs/vga.h", "size": 2230}, {"path": "rust/macros/concat-idents.rs", "size": 681}, {"path": "rust/macros/elpers.rs", "size": 0}, {"path": "rust/macros/export.rs", "size": 0}, {"path": "rust/macros/fmt.rs", "size": 0}, {"path": "rust/macros/kunit.rs", "size": 0}, {"path": "rust/macros/lib.rs", "size": 0}, {"path": "rust/macros/module.rs", "size": 0}, {"path": "rust/macros/paste.rs", "size": 0}, {"path": "rust/macros/vtable.rs", "size": 0}, {"path": "rust/modules/bitmap.rs", "size": 2201}, {"path": "rust/modules/cpu.rs", "size": 5072}, {"path": "rust/modules/cpufreq.rs", "size": 1706}, {"path": "rust/modules/device.rs", "size": 2310}, {"path": "rust/modules/fs.rs", "size": 3093}, {"path": "rust/modules/gpu.rs", "size": 2385}, {"path": "rust/modules/irq.rs", "size": 1799}, {"path": "rust/modules/module.h", "size": 20886}, {"path": "rust/modules/net.rs", "size": 1883}, {"path": "rust/modules/predule.rs", "size": 2564}, {"path": "rust/modules/print.rs", "size": 1129}, {"path": "rust/modules/terl.rs", "size": 32257}, {"path": "script/gcc-plugin/cfi_plugin.c", "size": 4849}, {"path": "script/gcc-plugin/gcc-common.h", "size": 3899}, {"path": "script/gcc-plugin/gcc-plugin.sh", "size": 905}, {"path": "script/gcc-plugin/kconfig", "size": 4408}, {"path": "script/gcc-plugin/letent_entropy_plugin.c", "size": 3569}, {"path": "script/gcc-plugin/makefile", "size": 1526}, {"path": "script/gcc-plugin/randstruct_plugin.c", "size": 6322}, {"path": "script/gcc-plugin/stackleak_plugin.c", "size": 3461}, {"path": "script/gcc-plugin/structleak_plugin.c", "size": 5232}, {"path": "servers/block.h", "size": 8867}, {"path": "servers/bond_3ad.c", "size": 97954}, {"path": "servers/bond_alb.c", "size": 52081}, {"path": "servers/bond_debugfs.h", "size": 2718}, {"path": "servers/bond_netlink.c", "size": 30297}, {"path": "servers/bond_options.c", "size": 58277}, {"path": "servers/bond_procfs.c", "size": 10084}, {"path": "servers/bond_sysfs_slave.c", "size": 3849}, {"path": "servers/bonding.c", "size": 190273}, {"path": "servers/bridge.h", "size": 8593}, {"path": "servers/com2096.h", "size": 665}, {"path": "servers/errno.h", "size": 9837}, {"path": "servers/ext4.h", "size": 14765}, {"path": "servers/netfilter.h", "size": 7664}, {"path": "servers/netlink.h", "size": 11138}, {"path": "servers/nvme.h", "size": 14462}, {"path": "servers/arcnet/arc-rawmode.c", "size": 5208}, {"path": "servers/arcnet/arc-rimi.c", "size": 11250}, {"path": "servers/arcnet/arcnet.c", "size": 34227}, {"path": "servers/arcnet/capmode.c", "size": 7935}, {"path": "servers/arcnet/com20020-isa.c", "size": 5893}, {"path": "servers/arcnet/kconfig", "size": 5015}, {"path": "unix/kernel/bsd.c", "size": 7319}, {"path": "unix/kernel/buf.h", "size": 3091}, {"path": "unix/kernel/calculator.pl", "size": 346}, {"path": "unix/kernel/data.S", "size": 70}, {"path": "unix/kernel/diff3.pl", "size": 285}, {"path": "unix/kernel/gdb-cache.S", "size": 2898}, {"path": "unix/kernel/hardirq.h", "size": 191}, {"path": "unix/kernel/hardirq1.h", "size": 725}, {"path": "unix/kernel/head_32.S", "size": 36956}, {"path": "unix/kernel/head_40.S", "size": 29957}, {"path": "unix/kernel/head_44.S", "size": 18445}, {"path": "unix/kernel/head_64.S", "size": 20256}, {"path": "unix/kernel/head_8xx.S", "size": 29109}, {"path": "unix/kernel/irq.c", "size": 29228}, {"path": "unix/kernel/kernel_main.c", "size": 157}, {"path": "unix/kernel/linux.c", "size": 1414}, {"path": "unix/kernel/memcpy.c", "size": 5528}, {"path": "unix/kernel/signal.h", "size": 1830}, {"path": "unix/kernel/swsusp_64.S", "size": 4544}, {"path": "unix/kernel/uaccess.S", "size": 14140}, {"path": "unix/kernel/uaccess.c", "size": 1142}, {"path": "unix/kernel/vector.S", "size": 9124}, {"path": "unix/kernel/vio.c", "size": 43942}, {"path": "unix/kernel/watch.c", "size": 4821}, {"path": "unix/kernel/bootpm/boot.S", "size": 4521}, {"path": "unix/kernel/bootpm/boot.cac", "size": 903}, {"path": "unix/kernel/bootpm/boot.pri", "size": 1021}, {"path": "unix/kernel/bootpm/boot.sec", "size": 1129}, {"path": "unix/kernel/bootpm/reboot.c", "size": 4292}, {"path": "unix/kernel/bootpm/rlboot.s", "size": 1973}, {"path": "unix/kernel/bootpm/siboot.s", "size": 1558}, {"path": "unix/kernel/conf/conf.h", "size": 969}, {"path": "unix/kernel/conf/data.S", "size": 70}, {"path": "unix/kernel/conf/m40.S", "size": 10810}, {"path": "unix/kernel/conf/m45.S", "size": 11367}, {"path": "unix/kernel/conf/mkconf.S", "size": 9264}, {"path": "unix/kernel/conf/sysfix.S", "size": 2531}, {"path": "unix/kernel/ken/clock.c", "size": 3057}, {"path": "unix/kernel/ken/fio.c", "size": 4253}, {"path": "unix/kernel/ken/main.c", "size": 4668}, {"path": "x86/asm.s", "size": 59777}, {"path": "x86/cmd.s", "size": 64900}, {"path": "x86/hbn.s", "size": 3413}, {"path": "x86/io.s", "size": 34950}, {"path": "x86/msboot.s", "size": 16245}, {"path": "x86/msdos.asm", "size": 110224}, {"path": "x86/msdos.s", "size": 166}, {"path": "x86/mshead.s", "size": 9020}];
+
+function formatSize(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B','KB','MB','GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+function buildTree() {
+  const root = {};
+  files.forEach(f => {
+    const parts = f.path.split('/');
+    let curr = root;
+    parts.forEach((part, idx) => {
+      if (!curr[part]) curr[part] = idx === parts.length - 1 ? { __file: f } : {};
+      curr = curr[part];
+    });
+  });
+  return root;
+}
+
+function renderTree(node, container, pathPrefix, depth) {
+  const dirs = Object.keys(node).filter(k => k !== '__file').sort((a,b) => a.localeCompare(b));
+  const ul = document.createElement('ul');
+
+  dirs.forEach(name => {
+    const child = node[name];
+    const isFile = child.__file;
+    const fullPath = pathPrefix ? pathPrefix + '/' + name : name;
+    const li = document.createElement('li');
+
+    if (isFile) {
+      const f = child.__file;
+      li.dataset.path = f.path.toLowerCase();
+      li.dataset.name = name.toLowerCase();
+      li.innerHTML = '<b>[FILE]</b> ' + name + ' (' + formatSize(f.size) + ') ' +
+        '<a href="https://raw.githubusercontent.com/realproxik/linuxab/main/' + f.path + '" target="_blank">[RAW]</a> ' +
+        '<a href="https://github.com/realproxik/linuxab/blob/main/' + f.path + '" target="_blank">[GITHUB]</a>';
+    } else {
+      li.dataset.path = fullPath.toLowerCase();
+      li.dataset.name = name.toLowerCase();
+      const header = document.createElement('span');
+      header.innerHTML = '<b>[DIR]</b> ' + name + ' <button>[+]</button>';
+      li.appendChild(header);
+
+      const childContainer = document.createElement('div');
+      childContainer.style.display = depth === 0 ? 'block' : 'none';
+      childContainer.style.marginLeft = '20px';
+      renderTree(child, childContainer, fullPath, depth + 1);
+      li.appendChild(childContainer);
+
+      header.querySelector('button').addEventListener('click', function() {
+        const showing = childContainer.style.display === 'block';
+        childContainer.style.display = showing ? 'none' : 'block';
+        this.textContent = showing ? '[+]' : '[-]';
+      });
+    }
+    ul.appendChild(li);
+  });
+  container.appendChild(ul);
+}
+
+const treeRoot = buildTree();
+const container = document.getElementById('tree-root');
+renderTree(treeRoot, container, '', 0);
+
+let fileCount = 0, totalSize = 0;
+files.forEach(f => { fileCount++; totalSize += f.size; });
+function countDirs(node) {
+  let c = 0;
+  Object.keys(node).forEach(k => {
+    if (k !== '__file') { c++; c += countDirs(node[k]); }
+  });
+  return c;
+}
+document.getElementById('file-count').textContent = fileCount;
+document.getElementById('dir-count').textContent = countDirs(treeRoot);
+document.getElementById('total-size').textContent = formatSize(totalSize);
+
+const searchInput = document.getElementById('search');
+const noResults = document.getElementById('no-results');
+
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  const allItems = document.querySelectorAll('li');
+  let hasMatch = false;
+
+  if (!query) {
+    allItems.forEach(item => item.style.display = '');
+    noResults.style.display = 'none';
+    document.querySelectorAll('div').forEach(d => {
+      if (d.style.marginLeft === '20px') d.style.display = '';
+    });
+    return;
+  }
+
+  allItems.forEach(item => {
+    const path = item.dataset.path || '';
+    const name = item.dataset.name || '';
+    const match = path.includes(query) || name.includes(query);
+    if (match) {
+      item.style.display = '';
+      hasMatch = true;
+      let parent = item.parentElement;
+      while (parent) {
+        if (parent.tagName === 'DIV') parent.style.display = 'block';
+        parent = parent.parentElement;
+      }
+    } else {
+      item.style.display = 'none';
+    }
+  });
+
+  noResults.style.display = hasMatch ? 'none' : 'block';
+});
+</script>
+</body>
+</html>
