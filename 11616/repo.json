@@ -1,0 +1,68 @@
+{
+  "apps": [
+    {
+      "name": "terminal",
+      "description": "Bash-like terminal emulator for linuxab",
+      "version": "1.0.0",
+      "url": "http://repo.linuxab.local/apps/terminal.bin",
+      "size_kb": 45,
+      "type": "app"
+    },
+    {
+      "name": "editor",
+      "description": "Text editor with syntax highlighting",
+      "version": "0.5.0",
+      "url": "http://repo.linuxab.local/apps/editor.bin",
+      "size_kb": 32,
+      "type": "app"
+    },
+    {
+      "name": "calculator",
+      "description": "Scientific calculator with graphing",
+      "version": "1.2.0",
+      "url": "http://repo.linuxab.local/apps/calc.bin",
+      "size_kb": 18,
+      "type": "app"
+    },
+    {
+      "name": "filemanager",
+      "description": "File manager with GUI",
+      "version": "0.8.0",
+      "url": "http://repo.linuxab.local/apps/fm.bin",
+      "size_kb": 28,
+      "type": "app"
+    },
+    {
+      "name": "browser",
+      "description": "Web browser for linuxab",
+      "version": "0.1.0",
+      "url": "http://repo.linuxab.local/apps/browser.bin",
+      "size_kb": 120,
+      "type": "app"
+    },
+    {
+      "name": "gamesuite",
+      "description": "Snake and Pong game collection",
+      "version": "2.0.0",
+      "url": "http://repo.linuxab.local/apps/gamesuite.bin",
+      "size_kb": 55,
+      "type": "game"
+    },
+    {
+      "name": "tetris",
+      "description": "Classic block stacking puzzle",
+      "version": "1.0.0",
+      "url": "http://repo.linuxab.local/apps/tetris.bin",
+      "size_kb": 42,
+      "type": "game"
+    },
+    {
+      "name": "asteroids",
+      "description": "Space shooter arcade game",
+      "version": "0.9.0",
+      "url": "http://repo.linuxab.local/apps/asteroids.bin",
+      "size_kb": 38,
+      "type": "game"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+name "linuxab-apps"
+description "App Store and Games for linuxab OS"
+authors "linuxab"
+copyright "Copyright © 2026, linuxab"
+license "MIT"
+
+// Use LDC for better optimization and @nogc support
+toolchainRequirements llvm=">=1.40"
+
+// Common configuration for OS-level code (no GC, no runtime)
+configuration "os" {
+    targetType "library"
+    buildRequirements "allowWarnings"
+    dflags "-betterC" "-nogc" "-defaultlib=none" "-linker=gold"
+    sourcePaths "source/os" "source/common"
+    excludedSourceFiles "source/appstore/*" "source/games/*"
+}
+
+// App Store configuration
+configuration "appstore" {
+    targetType "executable"
+    targetName "appstore"
+    sourcePaths "source/appstore" "source/common" "source/os"
+    mainSourceFile "source/appstore/main.d"
+    
+    // GUI via framebuffer - no external deps needed
+    // If you have SDL2 ported, uncomment:
+    // dependency "bindbc-sdl" version="~>1.4.0"
+    // versions "SDL_2_30"
+    
+    dflags "-betterC" "-nogc"
+}
+
+// Games configuration
+configuration "games" {
+    targetType "executable"
+    targetName "gamesuite"
+    sourcePaths "source/games" "source/common" "source/os"
+    mainSourceFile "source/games/main.d"
+    
+    // Raylib-D bindings if available on linuxab
+    // dependency "raylib-d" version="~>5.0.0"
+    
+    dflags "-betterC" "-nogc"
+}
